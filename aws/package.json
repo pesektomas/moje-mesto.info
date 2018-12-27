@@ -1,0 +1,38 @@
+{
+  "name": "lambdas.moje-mesto.info",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+	"deploy": "npx sls deploy -s dev",
+	"lint": "./node_modules/.bin/eslint src"
+  },
+  "dependencies": {
+    "config": "^3.0.1",
+    "config-cev-generator": "^0.1.6",
+    "fb": "^2.0.0",
+    "pino": "^5.10.5",
+    "rss-parser": "^3.6.0",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.6",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "copy-webpack-plugin": "^4.6.0",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "serverless": "^1.35.1",
+    "serverless-iam-roles-per-function": "^1.0.3",
+    "serverless-webpack": "^5.2.0",
+    "webpack": "^4.26.0"
+  },
+  "optionalDependencies": {
+    "aws-sdk": "^2.343.0"
+  }
+}

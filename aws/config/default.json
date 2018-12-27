@@ -1,0 +1,26 @@
+{
+	"mojeMesto": {
+		"connections": {
+			"facebook": {
+				"clientId": "",
+				"clientSecret": "",
+				"redirectUri": "",
+				"grantType": ""
+			},
+			"twitter": {
+				"customerKey": "",
+				"customerSecret": "",
+				"bearerToken": "",
+				"restBase": ""
+			}
+		},
+		"logger": {
+			"level": "info"
+		}
+	},
+	"data": {
+		"facebook": [],
+		"twitter": [],
+		"rss": {}
+	}
+}

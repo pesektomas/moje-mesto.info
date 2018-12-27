@@ -1,0 +1,98 @@
+service: moje-mesto
+
+plugins:
+  - serverless-webpack
+  - serverless-iam-roles-per-function
+
+custom:
+  s3Bucket: moje-mesto-serve
+  stage: ${opt:stage, 'dev'}
+  environment:
+    SERVE_BUCKET: ${self:custom.s3Bucket}
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-central-1
+  stage: ${self:custom.stage}
+  profile: tomaspesek
+
+  environment:
+    NODE_ENV: ${self:custom.stage}
+
+functions:
+  rss:
+    handler: src/RssHandler.rss
+    timeout: 30
+    events:
+      - http:
+          method: GET
+          path: /rss
+      - schedule:
+          rate: rate(60 minutes)
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+      - s3:*
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:s3:::"
+            - Ref: S3Bucket
+            - "/*"
+  twitter:
+    handler: src/TwitterHandler.twitter
+    timeout: 45
+    events:
+      - http:
+          method: GET
+          path: /twitter
+      - schedule:
+          rate: rate(15 minutes)
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+      - s3:*
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:s3:::"
+            - Ref: S3Bucket
+            - "/*"
+  facebook:
+    handler: src/FacebookHandler.facebook
+    timeout: 45
+    events:
+      - http:
+          method: GET
+          path: /facebook
+      - schedule:
+          rate: rate(15 minutes)
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+      - s3:*
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:s3:::"
+            - Ref: S3Bucket
+            - "/*"
+
+resources:
+  Resources:
+    S3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.s3Bucket}
+        AccessControl: PublicRead
+        CorsConfiguration:
+          CorsRules:
+            - AllowedMethods:
+                - GET
+              AllowedOrigins:
+                - "*"
