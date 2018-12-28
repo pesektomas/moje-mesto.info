@@ -16,6 +16,11 @@
 		},
 		"logger": {
 			"level": "info"
+		},
+		"api": {
+			"header": "",
+			"value": "",
+			"salt": ""
 		}
 	},
 	"data": {

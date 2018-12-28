@@ -6,7 +6,13 @@ plugins:
 
 custom:
   s3Bucket: moje-mesto-serve
+  SubjectMatterTable: moje-mesto-subject-matter
   stage: ${opt:stage, 'dev'}
+  authorizer:
+    name: Auth
+    resultTtlInSeconds: 0
+    identitySource: method.request.header.privateApi
+    type: request
   environment:
     SERVE_BUCKET: ${self:custom.s3Bucket}
   webpack:
@@ -30,8 +36,9 @@ functions:
     timeout: 30
     events:
       - http:
-          method: GET
+          method: POST
           path: /rss
+          authorizer: ${self:custom.authorizer}
       - schedule:
           rate: rate(60 minutes)
     iamRoleStatements:
@@ -46,17 +53,18 @@ functions:
             - "/*"
   twitter:
     handler: src/TwitterHandler.twitter
-    timeout: 45
+    timeout: 30
     events:
       - http:
-          method: GET
+          method: POST
           path: /twitter
+          authorizer: ${self:custom.authorizer}
       - schedule:
           rate: rate(15 minutes)
     iamRoleStatements:
     - Effect: Allow
       Action:
-      - s3:*
+        - s3:*
       Resource:
         Fn::Join:
           - ""
@@ -65,23 +73,52 @@ functions:
             - "/*"
   facebook:
     handler: src/FacebookHandler.facebook
-    timeout: 45
+    timeout: 30
     events:
       - http:
-          method: GET
+          method: POST
           path: /facebook
+          authorizer: ${self:custom.authorizer}
       - schedule:
           rate: rate(15 minutes)
     iamRoleStatements:
     - Effect: Allow
       Action:
-      - s3:*
+        - s3:*
       Resource:
         Fn::Join:
           - ""
           - - "arn:aws:s3:::"
             - Ref: S3Bucket
             - "/*"
+  subjectMatterSend:
+    handler: src/SubjectMatterHandler.send
+    events:
+      - http:
+          method: POST
+          path: /subject-matter/send
+          authorizer: ${self:custom.authorizer}
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.SubjectMatterTable}
+  subjectMatterGet:
+    handler: src/SubjectMatterHandler.get
+    events:
+      - http:
+          method: GET
+          path: /subject-matter/get
+          authorizer: ${self:custom.authorizer}
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Scan
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.SubjectMatterTable}
+  Auth:
+      handler: src/Authorization.auth
+      cors: true
+      memorySize: 128
 
 resources:
   Resources:
@@ -96,3 +133,21 @@ resources:
                 - GET
               AllowedOrigins:
                 - "*"
+    SubjectMatterTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.SubjectMatterTable}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: sended
+            AttributeType: N
+        ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: sended
+            KeyType: RANGE
