@@ -23,13 +23,15 @@ export default class FacebookLoader {
 			fields: 'feed',
 			'access_token': accessToken
 		}).then(res => {
-			return res.feed.data.map(post => ({
-				dataName: name,
-				link: `https://www.facebook.com/${name}/posts/${post.id.split('_')[1]}`,
-				pubDate: post.created_time,
-				title: `${post.message} ${post.story ? ':'+post.story : ''}`,
-				original: { ...post }
-			}));
+			return res.feed.data
+				.filter(post => post.message)
+				.map(post => ({
+					dataName: name,
+					link: `https://www.facebook.com/${name}/posts/${post.id.split('_')[1]}`,
+					pubDate: post.created_time,
+					title: `${post.message} ${post.story ? ':'+post.story : ''}`,
+					original: { ...post }
+				}));
 		});
 	}
 }
