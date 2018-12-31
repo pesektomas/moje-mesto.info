@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Components/Header';
 import News from './Components/News';
 import Subjects from './Components/Subjects';
+import Transport from './Components/Transport';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,12 +32,7 @@ class App extends React.Component {
 							<Subjects />
 						</TabPanel>
 						<TabPanel>
-							<p className="lead mt-5">
-								Rádi bychom Vám na tomto místě zprostředkovali prvek dopravy v rámci Smart city v našem městě. Bohužel naše město není ani trochu smart.
-							</p>
-							<p className="lead mt-5">
-								Proto jsme se pokusili kontaktovat i větší obchodní domy s prosbou o přístup k informacím o obsazenosti jejich parkovišť, bohužel, zatím bez žádné reakce.
-							</p>
+							<Transport />
 						</TabPanel>
 					</Tabs>
 
