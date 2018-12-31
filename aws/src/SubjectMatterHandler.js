@@ -34,6 +34,9 @@ module.exports.send = (event, context, callback) => {
 
 		callback(null, {
 			statusCode: '200',
+			headers: {
+				'Access-Control-Allow-Origin': '*'
+			},
 			body: JSON.stringify(data)
 		});
 
@@ -54,6 +57,9 @@ module.exports.get = (event, context, callback) => {
 		} else {
 			callback(null, {
 				statusCode: '200',
+				headers: {
+					'Access-Control-Allow-Origin': '*'
+				},
 				body: JSON.stringify(data)
 			});
 		}
