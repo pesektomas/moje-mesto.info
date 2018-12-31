@@ -1,21 +1,11 @@
 import React from 'react';
 import { FormattedDate, FormattedTime } from 'react-intl';
 import PropTypes from 'prop-types';
+import trim from '../../Helpers/trim';
 
 const defaultLimit = 4;
 
 const getTitle = (stateLimit) => stateLimit === defaultLimit ? 'more ...' : 'less ...';
-
-const trim = (title) => {
-	const maxLength = 100;
-	let trimmedTitle = title.substr(0, maxLength);
-	
-	if (title.length > trimmedTitle.length) {
-		trimmedTitle = trimmedTitle.substr(0, Math.min(trimmedTitle.length, trimmedTitle.lastIndexOf(' ')));
-	}
-	
-	return trimmedTitle + (title.length > trimmedTitle.length ? '...' : '');
-}
 
 export default class DataRenderer extends React.Component {
 
