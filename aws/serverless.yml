@@ -4,6 +4,9 @@ plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
 
+package:
+  individually: true
+  
 custom:
   s3Bucket: moje-mesto-serve
   SubjectMatterTable: moje-mesto-subject-matter

@@ -1,28 +1,31 @@
-import Parser from 'rss-parser';
 import S3 from './services/S3Connect';
 import Logger from './services/Logger';
 import config from 'config';
+import request from './services/XmlRequest';
+import xmlParer from './services/XmlParser';
 
-module.exports.rss = async (event, context, callback) => {
-	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; 
-
-	const logger = Logger({ event, context });
-
-	const rssFeeds = config.get('data.rss');
-
-	const parser = new Parser();
-	const data = Object.keys(rssFeeds).map(dataName => parser.parseURL(rssFeeds[dataName]));
+module.exports.rss = (event, context, callback) => {
 	
-	await Promise.all(data).then(dataResponse => {
+	const logger = Logger({ event, context });
+	const rssFeeds = config.get('data.rss');
+	
+	const data = rssFeeds.map(async feed => {
+		const body = await request(feed.url);
+		const json = await xmlParer(body);
+		return json.rss.channel;
+	});
+
+	Promise.all(data).then(dataResponse => {
+
 		const fileToSave = dataResponse
-		.filter(feed => feed.items.length > 0)
-		.map(feed => {
-			return feed.items.map(item => ({
+			.filter(feed => feed.item.length > 0)
+			.map(feed => feed.item.map(item => ({
 				dataName: feed.title,
 				...item
-			}));
-		});
-
+				})
+			)
+		);
+		
 		try {
 			S3().putObject({
 				ContentType: 'application/json; charset=utf-8',
