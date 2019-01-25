@@ -17,6 +17,9 @@
 	],
 	"plugins": [
 		[
+			"react-intl"
+		],
+		[
 			"@babel/plugin-proposal-class-properties",
 			{
 				"spec": true
