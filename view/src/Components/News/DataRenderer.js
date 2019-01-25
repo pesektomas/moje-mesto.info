@@ -5,7 +5,7 @@ import trim from '../../Helpers/trim';
 
 const defaultLimit = 4;
 
-const getTitle = (stateLimit) => stateLimit === defaultLimit ? 'more ...' : 'less ...';
+const getTitle = (stateLimit) => stateLimit === defaultLimit ? 'Více ...' : 'Méně ...';
 
 export default class DataRenderer extends React.Component {
 

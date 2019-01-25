@@ -37,10 +37,6 @@ class App extends React.Component {
 					</Tabs>
 
 				</div>
-
-				<div>
-					Footer
-				</div>
 			</div>
 		);
 	}
