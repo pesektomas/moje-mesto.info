@@ -1,0 +1,26 @@
+{
+  "mojeMesto": {
+    "connections": {
+      "facebook": {
+        "clientId": "NODE_APP_MOJEMESTO_CONNECTIONS_FACEBOOK_CLIENTID",
+        "clientSecret": "NODE_APP_MOJEMESTO_CONNECTIONS_FACEBOOK_CLIENTSECRET",
+        "redirectUri": "NODE_APP_MOJEMESTO_CONNECTIONS_FACEBOOK_REDIRECTURI",
+        "grantType": "NODE_APP_MOJEMESTO_CONNECTIONS_FACEBOOK_GRANTTYPE"
+      },
+      "twitter": {
+        "customerKey": "NODE_APP_MOJEMESTO_CONNECTIONS_TWITTER_CUSTOMERKEY",
+        "customerSecret": "NODE_APP_MOJEMESTO_CONNECTIONS_TWITTER_CUSTOMERSECRET",
+        "bearerToken": "NODE_APP_MOJEMESTO_CONNECTIONS_TWITTER_BEARERTOKEN",
+        "restBase": "NODE_APP_MOJEMESTO_CONNECTIONS_TWITTER_RESTBASE"
+      }
+    },
+    "logger": {
+      "level": "NODE_APP_MOJEMESTO_LOGGER_LEVEL"
+    },
+    "api": {
+      "header": "NODE_APP_MOJEMESTO_API_HEADER",
+      "value": "NODE_APP_MOJEMESTO_API_VALUE",
+      "salt": "NODE_APP_MOJEMESTO_API_SALT"
+    }
+  }
+}
