@@ -20,8 +20,9 @@ module.exports.rss = (event, context, callback) => {
 		const fileToSave = dataResponse
 			.filter(feed => feed.item.length > 0)
 			.map(feed => feed.item.map(item => ({
+				...item,
 				dataName: feed.title,
-				...item
+				pubDate: new Date(feed.pubDate)
 				})
 			)
 		);
