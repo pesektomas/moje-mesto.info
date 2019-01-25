@@ -1,1 +1,1 @@
-export const apiUrl = 'https://giz0w9kzhe.execute-api.eu-central-1.amazonaws.com/dev/';
+export const apiUrl = 'https://moje-mesto-serve.s3.amazonaws.com/';
