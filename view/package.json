@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "npm ci && webpack --mode production",
     "start": "webpack-dev-server --open --mode development",
     "lint": "./node_modules/.bin/eslint src",
     "test": "jest"
@@ -25,6 +25,7 @@
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
+    "babel-plugin-react-intl": "^3.0.1",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
