@@ -22,7 +22,7 @@ module.exports.rss = (event, context, callback) => {
 			.map(feed => feed.item.map(item => ({
 				...item,
 				dataName: feed.title,
-				pubDate: new Date(feed.pubDate)
+				pubDate: new Date(item.pubDate)
 				})
 			)
 		);
