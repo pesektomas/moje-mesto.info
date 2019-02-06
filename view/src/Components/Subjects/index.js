@@ -1,8 +1,8 @@
 import React from 'react';
-import Form from './Subjects/Form';
-import DataRenderer from './Subjects/DataRenderer';
+import Form from './Form';
+import DataRenderer from './DataRenderer';
 import request from 'request-promise';
-import { apiUrl } from '../Helpers/ApiUrl'; 
+import { apiUrl } from '../../Helpers/ApiUrl'; 
 
 export default class Subjects extends React.Component {
 

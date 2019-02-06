@@ -1,5 +1,5 @@
 import React from 'react';
-import DataRenderer from './News/DataRenderer';
+import DataRenderer from './DataRenderer';
 
 export default class News extends React.Component {
 

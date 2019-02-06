@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from './Transports/Map'
+import Map from './Map'
 
 export default class Transport extends React.Component {
 
