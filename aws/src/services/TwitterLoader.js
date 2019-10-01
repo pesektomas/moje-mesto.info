@@ -13,11 +13,11 @@ export default class TwitterLoader {
 	}
 
 	loadData(name) {
-		return this.client.get('statuses/user_timeline', { screen_name: name }).then(tweets => tweets.map(tweet => ({
+		return this.client.get('statuses/user_timeline', { screen_name: name, include_entities: true, tweet_mode: 'extended' }).then(tweets => tweets.map(tweet => ({
 			dataName: name,
 			link: `https://twitter.com/${name}/status/${tweet.id_str}`,
 			pubDate: tweet.created_at,
-			title: tweet.text,
+			title: tweet.full_text,
 			original: { ...tweet }
 		})))
 	}

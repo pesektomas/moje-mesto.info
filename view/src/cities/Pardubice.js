@@ -13,5 +13,8 @@ export const Pardubice = {
 				text: 'Dobíjecí stanice Golf & Spa'
 			}
 		]
+	},
+	news: {
+		rssTrans: 'Pardubice.eu'
 	}
 }
