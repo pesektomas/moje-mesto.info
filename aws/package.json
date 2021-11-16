@@ -44,6 +44,6 @@
     "webpack": "^4.26.0"
   },
   "optionalDependencies": {
-    "aws-sdk": "^2.343.0"
+    "aws-sdk": "^2.814.0"
   }
 }
